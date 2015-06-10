@@ -1,0 +1,45 @@
+*{
+  box-sizing:border-box;
+  -webkit-app-region: no-drag;
+}
+#canvas {
+  width:100vw;
+  height:90vh;
+  margin:0;
+}
+#controls {
+  display: flex;
+  height:10vh;
+  width:100vw;
+  color:#eee;
+
+  background:black;
+}
+
+#controls>span{
+  display: inline-block;
+  padding: 0 2rem;
+  line-height:10vh;
+  cursor:default;
+  font-weight:bold;
+  background:black;
+  transition:all 0.2s ease;
+}
+#controls>span::-moz-selection{
+  color:unset;
+  background:unset;
+}
+#controls>span::selection{
+  color:unset;
+  background:unset;
+}
+#controls>span.title{
+  border-right:5px solid rgb(62,175,255);
+}
+#controls>span.button:hover{
+  background-color:rgb(62,175,255);
+}
+
+i.fa{
+  margin-left:0.5em;
+}

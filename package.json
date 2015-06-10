@@ -13,6 +13,7 @@
   "author": "frantic1048",
   "license": "MIT",
   "devDependencies": {
+    "electron-prebuilt": "^0.27.3",
     "gulp": "^3.9.0",
     "gulp-shell": "^0.4.2"
   },

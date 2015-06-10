@@ -1,6 +1,6 @@
 # Roboto
 
-C++ 大作业
+C++ 作业，模拟机器人巡逻。
 
 # 构建
 
@@ -12,17 +12,17 @@ C++ 大作业
 
 安装依赖的 node 模块（在此仓库的根目录执行，构建也是）
 
-    npm install
+    $npm install
 
 开始构建
 
-    gulp
+    $gulp
 
 # 运行
 
 ## Electron
 
-    electron app
+    $electron app
 
 ## 浏览器
 

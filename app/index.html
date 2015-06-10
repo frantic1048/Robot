@@ -11,12 +11,27 @@
 <meta name="HandheldFriendly" content="true">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
+<link type="text/css" rel="stylesheet" href="style/pure-min.css"></link>
+<link type="text/css" rel="stylesheet" href="style/font-awesome.min.css"></link>
+<link type="text/css" rel="stylesheet" href="style/custom.css"></link>
+
 </head>
 <body>
+  <div id="layout" class="pure-g">
+    <canvas id="canvas" class="pure-u-1-1"></canvas>
+    <div id="controls" class="pure-u-1-1">
+      <span class="title">Roboto Controls<i class="fa fa-cog"></i></span>
+      <span class="button" onclick="roboto.stop()">stop<i class="fa fa-stop"></i></span>
+      <span class="button" onclick="roboto.start()">start<i class="fa fa-play"></i></span>
+      <span class="button" onclick="roboto.new()">new<i class="fa fa-refresh"></i></span>
+    </div>
+  </div>
   <script type="application/javascript" src="js/roboto.js"></script>
   <script type="application/javascript" src="js/render.js"></script>
   <script type="application/javascript">
   // Render Initial
+  var roboto = Roboto();
+  roboto.init();
   </script>
 </body>
 </html>
