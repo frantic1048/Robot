@@ -14,7 +14,6 @@ var Roboto = function () {
   function rY (y) { return baseY + y; }
   function draw () {
     var now = performance.now();
-    // ...
     if (running && (now - lastFrameTime >= 1000/FPS)) {
       context.fillStyle = "rgb(170,66,255)";
       context.fillRect (rX(10),rY(10), 55, 50);
@@ -35,15 +34,17 @@ var Roboto = function () {
     init : function () {
       canvas = document.getElementById("canvas");
       context = canvas.getContext('2d');
-
-      canvas.setAttribute("width",window.innerWidth);
-      canvas.setAttribute("height",window.innerHeight*0.9);
-
-      baseX = canvas.getAttribute("width") * 0.5;
-      baseY = canvas.getAttribute("height") * 0.5;
-
+      this.resize();
       this.new();
       this.start();
+
+      window.addEventListener('resize',this.resize);
+    },
+    resize : function () {
+      canvas.setAttribute("width",window.innerWidth);
+      canvas.setAttribute("height",window.innerHeight*0.9);
+      baseX = canvas.getAttribute("width") * 0.5;
+      baseY = canvas.getAttribute("height") * 0.5;
     },
     new : function () {
       //...
