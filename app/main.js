@@ -55,9 +55,10 @@ app.on('ready', function() {
   });
   ipc.on('Wmaximize', function(event, arg) {
     if (mainWindow.isMaximized()){
-      mainWindow.unmaximize();
+      // temporarily disable maximize
+      // mainWindow.unmaximize();
     } else {
-      mainWindow.maximize();
+      // mainWindow.maximize();
     }
   });
   ipc.on('Wclose', function(event, arg) {
