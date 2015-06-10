@@ -1,4 +1,18 @@
 
+var ipc = require('ipc');
+// window controls
+function Wminimize() {
+  ipc.send('Wminimize');
+}
+function Wmaximize() {
+  ipc.send('Wmaximize');
+}
+function Wclose() {
+  ipc.send('Wclose');
+}
+
+
+// robot simulator
 var Roboto = function () {
   var canvas = null,  // Canvas Element to Draw
       context = null, // Canvas Context
@@ -29,6 +43,7 @@ var Roboto = function () {
     },
     start : function () {
       running = true;
+      this.resize();
       draw();
     },
     init : function () {
@@ -41,13 +56,15 @@ var Roboto = function () {
       window.addEventListener('resize',this.resize);
     },
     resize : function () {
-      canvas.setAttribute("width",window.innerWidth);
-      canvas.setAttribute("height",window.innerHeight*0.9);
+      canvas.setAttribute("width",window.innerWidth - 16 * 12);// 16px * 12rem is sidebar's width
+      canvas.setAttribute("height",window.innerHeight);
       baseX = canvas.getAttribute("width") * 0.5;
       baseY = canvas.getAttribute("height") * 0.5;
+      console.log("width: " + window.innerWidth + "  height: " + window.innerHeight);
     },
     new : function () {
       //...
+      this.start();
     },
     setFPS : function (fps) {
       var nfps = parseInt(fps,10) || 24;

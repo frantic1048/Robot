@@ -1,45 +1,79 @@
 *{
   box-sizing:border-box;
-  -webkit-app-region: no-drag;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+*::-moz-selection{
+  color:unset;
+  background:unset;
+}
+*::selection{
+  color:unset;
+  background:unset;
+}
+body{
+  font-size:16px;
+}
+#layout{
+  display: flex;
+  width:100vw;
 }
 #canvas {
-  width:100vw;
   height:90vh;
   margin:0;
 }
-#controls {
+#sidebar {
+  position:fixed;
+  overflow: hidden;
+  right:0;
+  height:100vh;
+  width: 12rem;
   display: flex;
-  height:10vh;
-  width:100vw;
+  flex-direction: column;
+  height:100vh;
   color:#eee;
-
-  background:black;
+  background:#222;
 }
 
-#controls>span{
+#sidebar>span{
   display: inline-block;
-  padding: 0 2rem;
   line-height:10vh;
   cursor:default;
   font-weight:bold;
-  background:black;
   transition:all 0.2s ease;
 }
-#controls>span::-moz-selection{
-  color:unset;
-  background:unset;
+#sidebar>span:not(#window-controls){
+  padding: 0 2rem;
 }
-#controls>span::selection{
-  color:unset;
-  background:unset;
+#sidebar>.title{
+  border-bottom: 1px solid rgb(62,175,255);
+  -webkit-app-region: drag;
 }
-#controls>span.title{
-  border-right:5px solid rgb(62,175,255);
+#sidebar>.label{
+  border-right: 5px solid rgb(62,175,255);
+  box-shadow:0 4px 19px black;
+  -webkit-app-region: drag;
 }
-#controls>span.button:hover{
+#sidebar .button{
+  transition: all 0.2s ease;
+}
+#sidebar .button>i.fa,
+#sidebar .label>i.fa{
+  padding-right: 0.5em;
+}
+#sidebar .button:hover{
   background-color:rgb(62,175,255);
 }
 
-i.fa{
-  margin-left:0.5em;
+#window-controls{
+  font-size:0;
+}
+
+#window-controls>.button{
+  font-size:1rem;
+  text-align: center;
 }

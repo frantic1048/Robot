@@ -17,13 +17,19 @@
 
 </head>
 <body>
-  <div id="layout" class="pure-g">
-    <canvas id="canvas" class="pure-u-1-1"></canvas>
-    <div id="controls" class="pure-u-1-1">
-      <span class="title">Roboto Controls<i class="fa fa-cog"></i></span>
-      <span class="button" onclick="roboto.stop()">stop<i class="fa fa-stop"></i></span>
-      <span class="button" onclick="roboto.start()">start<i class="fa fa-play"></i></span>
-      <span class="button" onclick="roboto.new()">new<i class="fa fa-refresh"></i></span>
+  <div id="layout">
+    <canvas id="canvas"></canvas>
+    <div id="sidebar">
+      <span class="title">Roboto</span>
+      <span id="window-controls" class="pure-g">
+        <span class="button pure-u-1-3" id="minimize" onclick="Wminimize()"><i class="fa fa-chevron-down"></i></span>
+        <span class="button pure-u-1-3" id="maximize" onclick="Wmaximize()"><i class="fa fa-circle-o"></i></span>
+        <span class="button pure-u-1-3" id="close"    onclick="Wclose()"><i class="fa fa-close"></i></span>
+      </span>
+      <span class="label"><i class="fa fa-cog"></i>Controls</span>
+      <span class="button" onclick="roboto.stop()"><i class="fa fa-stop"></i>stop</span>
+      <span class="button" onclick="roboto.start()"><i class="fa fa-play"></i>start</span>
+      <span class="button" onclick="roboto.new()"><i class="fa fa-refresh"></i>new</span>
     </div>
   </div>
   <script type="application/javascript" src="js/roboto.js"></script>

@@ -1,5 +1,6 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
+var ipc = require('ipc'); // for window message communication
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -19,16 +20,26 @@ app.on('window-all-closed', function() {
 app.on('ready', function() {
   // Create the browser window.
   var robotoWindow = {
-    width: 800,
-    height: 600,
+      width:800,
+      height:600,
+      "min-width": 800,
+      "min-height": 600,
+      frame:false,
+      show:false
   };
   mainWindow = new BrowserWindow(robotoWindow);
+  mainWindow.setSize(800,601);
 
   // disable default electron menubar
   // mainWindow.setMenu(null);
 
   // and load the index.html of the app.
   mainWindow.loadUrl('file://' + __dirname + '/index.html');
+
+  mainWindow.show();
+
+  // fix the weird canvas sizeing
+  setTimeout(function(){mainWindow.setSize(800,600);},500);
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
@@ -37,4 +48,20 @@ app.on('ready', function() {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
+
+
+  ipc.on('Wminimize', function(event, arg) {
+    mainWindow.minimize();
+  });
+  ipc.on('Wmaximize', function(event, arg) {
+    if (mainWindow.isMaximized()){
+      mainWindow.unmaximize();
+    } else {
+      mainWindow.maximize();
+    }
+  });
+  ipc.on('Wclose', function(event, arg) {
+    mainWindow.close();
+  });
+
 });
