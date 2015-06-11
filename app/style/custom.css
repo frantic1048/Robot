@@ -64,12 +64,14 @@ body{
 }
 #sidebar .button>i.fa,
 #sidebar .label>i.fa{
-  padding-right: 0.5em;
+  padding: 0 0.5em;
 }
 #sidebar .button:hover{
   background-color:rgb(62,175,255);
 }
-
+#sidebar .button#close:hover{
+  background-color:rgb(236,47,67);
+}
 #window-controls{
   font-size:0;
 }
