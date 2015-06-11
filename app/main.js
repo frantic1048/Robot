@@ -56,9 +56,9 @@ app.on('ready', function() {
   ipc.on('Wmaximize', function(event, arg) {
     if (mainWindow.isMaximized()){
       // temporarily disable maximize
-      // mainWindow.unmaximize();
+      mainWindow.unmaximize();
     } else {
-      // mainWindow.maximize();
+      mainWindow.maximize();
     }
   });
   ipc.on('Wclose', function(event, arg) {

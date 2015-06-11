@@ -1,5 +1,5 @@
-
 var ipc = require('ipc');
+
 // window controls
 function Wminimize() {
   ipc.send('Wminimize');
@@ -13,18 +13,16 @@ function Wclose() {
 
 // robot simulator
 var Roboto = function () {
-  var canvas = null,  // Canvas Element to Draw
+  var layout = null,  // reference for layout
+      canvas = null,  // Canvas Element to Draw
       context = null, // Canvas Context
       lastFrameTime = performance.now(); // time of last frame rendered(millisecond)
-      FPS = 5, // max FPS of rendering
+      FPS = 60, // max FPS of rendering
       running = false, // running status
 
       // origin point for drawing
       baseX = 0,
       baseY = 0;
-
-  function r (){ return Math.random()*255 };
-  function ir () {return parseInt(r(),10)};
 
   function rX (x) { return baseX + x; }
   function rY (y) { return baseY + y; }
@@ -35,11 +33,11 @@ var Roboto = function () {
     if (running && (now - lastFrameTime >= 1000/FPS)) {
       lastFrameTime = now;
 
-      context.fillStyle = "rgb(" + ir() + "," + ir() + "," + ir() + ")";
-      context.fillRect (rX(r()),rY(r()), r(), r());
+      context.fillStyle = "rgb(112,169,255)";
+      context.fillRect (rX(-10),rY(-10),20, 20);
 
-      context.fillStyle = "rgb(" + ir() + "," + ir() + "," + ir() + ")";
-      context.fillRect (rX(r()),rY(r()), r(), r());
+      context.fillStyle = "rgb(204,108,255)";
+      context.fillRect (rX(0),rY(0),30,40);
     }
     requestAnimationFrame(draw);
   }
@@ -52,15 +50,18 @@ var Roboto = function () {
       draw();
     },
     init : function () {
-      canvas = document.getElementById("canvas");
-      context = canvas.getContext('2d');
+      layout = document.getElementById("layout");
       this.resize();
       this.new();
       this.start();
-
       window.addEventListener('resize',this.resize);
     },
     resize : function () {
+      if (canvas) canvas.remove();
+      canvas = layout.insertBefore(document.createElement("canvas"),layout.firstChild);
+      canvas.setAttribute('id','canvas');
+      context = canvas.getContext('2d');
+
       canvas.setAttribute("width",window.innerWidth - 16 * 12);// 16px * 12rem is sidebar's width
       canvas.setAttribute("height",window.innerHeight);
       baseX = canvas.getAttribute("width") * 0.5;
