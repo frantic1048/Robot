@@ -20,10 +20,6 @@ C++ 作业，模拟机器人巡逻。
 
 # 运行
 
-## Electron
+使用 Electron：
 
     $electron app
-
-## 浏览器
-
-用浏览器打开 `app/index.html`
