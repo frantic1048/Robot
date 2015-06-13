@@ -24,6 +24,7 @@ public:
     x = fr * std::cos(theta);
     y = fr * std::sin(theta);
   }
+
 private:
   double theta;// in radian
 };

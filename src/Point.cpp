@@ -13,8 +13,10 @@ public:
 
   double getX () const { return x; }
   void setX (double x_) { x = x_; }
+  
   double getY () const { return y; }
   void setY (double y_) { y = y_; }
+
 protected:
   double x;
   double y;
