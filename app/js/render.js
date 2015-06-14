@@ -1,4 +1,9 @@
-var ipc = require('ipc');
+var ipc = require('ipc'),
+
+    // Emscripten bindings
+    Point = Module.Point,
+    Vector = Module.Vector,
+    Patrolmen = Module.Patrolmen;
 
 // window controls
 function Wminimize() {
@@ -66,8 +71,6 @@ var Roboto = function () {
       canvas.setAttribute("height",window.innerHeight);
       baseX = canvas.getAttribute("width") * 0.5;
       baseY = canvas.getAttribute("height") * 0.5;
-      console.log("window> width: " + (window.innerWidth - 16 * 12) + "  height: " + window.innerHeight);
-      console.log("canvas> width: " + canvas.getAttribute("width") + "  height: " + canvas.getAttribute("height"));
     },
     new : function () {
       //...

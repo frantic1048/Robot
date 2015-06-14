@@ -24,7 +24,7 @@ app.on('ready', function() {
       height:600,
       "min-width": 800,
       "min-height": 600,
-      frame:true,
+      frame:false,
       show:false
   };
   mainWindow = new BrowserWindow(robotoWindow);

@@ -1,4 +1,6 @@
 #include <emscripten/bind.h>
+#include <cstdlib>
+#include <cmath>
 
 using namespace emscripten;
 
@@ -13,9 +15,13 @@ public:
 
   double getX () const { return x; }
   void setX (double x_) { x = x_; }
-  
+
   double getY () const { return y; }
   void setY (double y_) { y = y_; }
+
+  double distanceTo (Point b) {
+    return std::sqrt((x - b.x) * (x - b.x) + (y - b.y) * (y - b.y));
+  }
 
 protected:
   double x;
@@ -28,5 +34,6 @@ EMSCRIPTEN_BINDINGS(point) {
     .constructor<double, double>()
     .property("x",&Point::getX, &Point::setX)
     .property("y",&Point::getY, &Point::setY)
+    .function("distanceTo",&Point::distanceTo)
     ;
 }
