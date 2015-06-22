@@ -1,7 +1,10 @@
-#include <emscripten/bind.h>
+#ifndef __ROBOTO_POINT_INCLUDED__
+#define __ROBOTO_POINT_INCLUDED__
+
 #include <cstdlib>
 #include <cmath>
 
+#include <emscripten/bind.h>
 using namespace emscripten;
 
 class Point
@@ -37,3 +40,5 @@ EMSCRIPTEN_BINDINGS(point) {
     .function("distanceTo",&Point::distanceTo)
     ;
 }
+
+#endif

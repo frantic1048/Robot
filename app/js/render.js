@@ -3,7 +3,7 @@ var ipc = require('ipc'),
     // Emscripten bindings
     Point = Module.Point,
     Vector = Module.Vector,
-    Patrolmen = Module.Patrolmen;
+    Bots = Module.Bots;
 
 // window controls
 function Wminimize() {
@@ -37,6 +37,11 @@ var Roboto = function () {
     var now = performance.now();
     if (running && (now - lastFrameTime >= 1000/FPS)) {
       lastFrameTime = now;
+
+      context.clearRect(0
+                       ,0
+                       ,canvas.getAttribute("width")
+                       ,canvas.getAttribute("height")); // clear previous frame
 
       context.fillStyle = "rgb(112,169,255)";
       context.fillRect (rX(-10),rY(-10),20, 20);

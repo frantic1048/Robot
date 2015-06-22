@@ -5,4 +5,10 @@
 #include "Vector.cpp"
 
 // implements of Patrolmen robots
-#include "Patrolmen.cpp"
+#include "Bots.cpp"
+
+// implements of Patrolmen map
+#include "Map.cpp"
+
+// implements of simulation
+#include "Simulator.cpp"

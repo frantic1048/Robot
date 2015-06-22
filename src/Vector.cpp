@@ -1,12 +1,26 @@
-#include <emscripten/bind.h>
+#ifndef __ROBOTO_VECTOR_INCLUDED__
+#define __ROBOTO_VECTOR_INCLUDED__
+
 #include <cstdlib>
 #include <cmath>
 
+#include <emscripten/bind.h>
 using namespace emscripten;
+
+class Point;
+
 
 class Vector: public Point
 {
+private:
+  double theta;// in radian
+
 public:
+  Vector ()
+    :Point(0, 0)
+    ,theta(0)
+    {}
+
   Vector(double x,double y,double theta)
     :Point(x,y)
     ,theta(theta)
@@ -24,9 +38,6 @@ public:
     x = fr * std::cos(theta);
     y = fr * std::sin(theta);
   }
-
-private:
-  double theta;// in radian
 };
 
 // Vector constructor binding
@@ -40,3 +51,5 @@ EMSCRIPTEN_BINDINGS(my_vector) {
     .function("forward", &Vector::forward)
     ;
 }
+
+#endif
