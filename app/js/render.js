@@ -166,7 +166,7 @@ var Robot = function () {
     },
     new : function () {
       if (simulation !== null) simulation.delete();
-      simulation = new Simulator(66,20);
+      simulation = new Simulator(666,20);
       this.resize();
       this.start();
     },

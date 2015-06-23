@@ -79,6 +79,7 @@ public:
                    xTotal = 0,
                    yTotal = 0,
                    thetaAveReverse = 0,
+                   thetaTotal = 0,
                    dist = 0;
 
             for (long other = 0; other < size; ++ other) {
@@ -88,9 +89,9 @@ public:
                 double dx = bots[other].getX() - bots[here].getX();
                 double dy = bots[other].getY() - bots[here].getY();
                 double dtheta = std::atan2(dy, dx);
-                xTotal += std::cos(dtheta) * ((int) visionRadius/dist);
-                yTotal += std::sin(dtheta) * ((int) visionRadius/dist);
-                thetaCount += ((int) visionRadius/dist);
+                xTotal += std::cos(dtheta) * std::pow(((int) visionRadius/dist), 2);
+                yTotal += std::sin(dtheta) * std::pow(((int) visionRadius/dist), 2);
+                thetaCount += std::pow(((int) visionRadius/dist), 2);
               }
             }
 
