@@ -12,7 +12,7 @@ double getRandomNumberBetween(double lowerBound, double upperBound);
 
 #define PI 3.141592653589793
 #define BOT_VISION_RADUIS 30
-#define BOT_INIT_RADIUS 100.0
+#define BOT_INIT_RADIUS 100
 #define BOT_MOVE_MODE_FREE 1
 #define BOT_MOVE_MODE_EDGE 2
 
@@ -66,36 +66,46 @@ public:
     for ( long here = 0;here < size; ++here ) {
       if (botMoveMode[here] == BOT_MOVE_MODE_FREE) {
         // normally forward
-        bots[here].forward();
 
-        // then turn
+        // detect if bot reaches edge
+
+        // not on edge,then turn
         for ( long another = 0; another < size; ++another ) {
           if ( another != here && bots[here].distanceTo(bots[another]) <= visionRadius) {
             // when meet another bot...
             // turn...
 
-            double thetaTotal = 0;
-            double thetaCount = 0;
+            double thetaCount = 0,
+                   xTotal = 0,
+                   yTotal = 0,
+                   thetaAveReverse = 0,
+                   dist = 0;
 
             for (long other = 0; other < size; ++ other) {
               if( (other != here)
-                &&(bots[here].distanceTo(bots[other]) <= visionRadius/2.0)
+                &&((dist = bots[here].distanceTo(bots[other])) <= visionRadius)
                 ) {
                 double dx = bots[other].getX() - bots[here].getX();
                 double dy = bots[other].getY() - bots[here].getY();
                 double dtheta = std::atan2(dy, dx);
-                thetaTotal += dtheta;
-                thetaCount += 1;
+                xTotal += std::cos(dtheta) * ((int) visionRadius/dist);
+                yTotal += std::sin(dtheta) * ((int) visionRadius/dist);
+                thetaCount += ((int) visionRadius/dist);
               }
             }
+
             if (thetaCount > 0) {
-              bots[here].setTheta(thetaTotal/thetaCount > PI ? thetaTotal/thetaCount - PI : thetaTotal/thetaCount + PI);
+              thetaAveReverse = std::atan2(-yTotal/thetaCount,-xTotal/thetaCount);
+              bots[here].setTheta(thetaAveReverse);
             }
           }
         }
+
       } else if (botMoveMode[here] == BOT_MOVE_MODE_EDGE) {
         // EDGE MODE
       }
+
+      bots[here].forward();
     }
   }
 };

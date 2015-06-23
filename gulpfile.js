@@ -5,6 +5,9 @@ var gulp  = require('gulp'),
 gulp.task('default',function(){
   return gulp.src("src/Robot.cpp")
     .pipe(shell([
-      'em++ --bind -v <%= file.path %> -o app/js/Robot.js'
+      // -s: max memory
+      // default 16777216 = 16*1024*1024 Byte = 16 MiB
+      // using   67108864 = 64 MiB
+      'em++ --bind -v <%= file.path %> -s TOTAL_MEMORY=67108864 -o app/js/Robot.js'
     ]))
 });

@@ -20,7 +20,7 @@ var Robot = function () {
       canvas = null,  // Canvas Element to Draw
       context = null, // Canvas Context
       lastFrameTime = performance.now(); // time of last frame rendered(millisecond)
-      FPS = 60, // max FPS of rendering
+      FPS = 30, // max FPS of rendering
       running = false, // running status
 
       // origin point for drawing
@@ -88,7 +88,7 @@ var Robot = function () {
       var bots = simulation.currentBots;
       var bot = null;
       var botVisionRaduis = bots.visionRaduis;
-      var botBodyRadius = botVisionRaduis / 10;
+      var botBodyRadius = 2;
       var eachBot = function (operation) {
         while(bots.indexOfBotIterator() !== -1){
             bot = bots.nextBot();
@@ -122,7 +122,8 @@ var Robot = function () {
       // draw robots:bot body
       context.restore();
       context.save();
-      context.fillStyle = "rgba(0,157,255,1)";
+      // context.fillStyle = "rgba(0,157,255,1)";
+      context.fillStyle = "rgba(255, 63, 194, 1)";
       eachBot(function(bot){
         context.beginPath();
         context.arc(rX(bot.x),rY(bot.y),botBodyRadius,0,2*Math.PI,true);
@@ -165,7 +166,7 @@ var Robot = function () {
     },
     new : function () {
       if (simulation !== null) simulation.delete();
-      simulation = new Simulator(20,20);
+      simulation = new Simulator(66,20);
       this.resize();
       this.start();
     },
