@@ -23,14 +23,18 @@ private:
   Bot * bots;
   int * botMoveMode; // move mode of bot
   long botsIteratorCount;  // iterator variable for patrolmen iteratoring
+  long mapSize;
+  Point * mapVerticies;
   static double const visionRadius;
 
 public:
   Bots () {}
-  Bots (long n)
+  Bots (long n,Point * _mapVerticies,long _mapSize)
     :botsIteratorCount(0)
     ,size(n)
+    ,mapSize(_mapSize)
     {
+    mapVerticies = _mapVerticies;
     bots = new Bot[n];
     botMoveMode = new int[n];
 
@@ -107,7 +111,7 @@ double const Bots::visionRadius = BOT_VISION_RADUIS;
 // Bots constructor binding
 EMSCRIPTEN_BINDINGS(bots) {
   class_<Bots>("Bots")
-    .constructor<long>()
+    .constructor<long, Point *, long>()
     .property("size", &Bots::getSize)
     .function("nextBot", &Bots::nextBot)
     .function("indexOfBotIterator", &Bots::indexOfBotIterator)

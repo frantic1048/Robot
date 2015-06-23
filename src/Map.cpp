@@ -44,6 +44,10 @@ public:
     return size;
   }
 
+  Point * getVertices() const {
+    return vertices;
+  }
+
   Point nextVertex () { return vertices[verticesIteratorCount++]; }
 
   long indexOfVertexIterator () {

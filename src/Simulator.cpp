@@ -18,10 +18,10 @@ private:
 public:
   Simulator () {}
   Simulator (long _botCount, long _mapVertexCount)
-    :botCount(_botCount)
-    ,currentBots(_botCount)
-    ,mapVertexCount(_mapVertexCount)
+    :mapVertexCount(_mapVertexCount)
     ,currentMap(_mapVertexCount)
+    ,botCount(_botCount)
+    ,currentBots(_botCount,currentMap.getVertices(),currentMap.getSize())
     {}
 
   void nextTick () {
