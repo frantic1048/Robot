@@ -1,5 +1,5 @@
-#ifndef __ROBOT_VECTOR_INCLUDED__
-#define __ROBOT_VECTOR_INCLUDED__
+#ifndef __ROBOT_BOT_INCLUDED__
+#define __ROBOT_BOT_INCLUDED__
 
 #include <cstdlib>
 #include <cmath>
@@ -9,19 +9,18 @@ using namespace emscripten;
 
 class Point;
 
-
-class Vector: public Point
+class Bot: public Point
 {
 private:
-  double theta;// in radian
+  double theta;// theta (in radian) value in polar coordinate system
 
 public:
-  Vector ()
+  Bot ()
     :Point(0, 0)
     ,theta(0)
     {}
 
-  Vector(double x,double y,double theta)
+  Bot(double x,double y,double theta)
     :Point(x,y)
     ,theta(theta)
     {}
@@ -29,6 +28,7 @@ public:
   double getTheta () const { return theta; }
   void setTheta (double theta_) { theta = theta_; }
 
+  // radius value in polar coordinate system
   double r () const {
     return std::sqrt(x*x + y*y);
   }
@@ -46,14 +46,14 @@ public:
 };
 
 // Vector constructor binding
-EMSCRIPTEN_BINDINGS(my_vector) {
-  class_<Vector>("Vector")
+EMSCRIPTEN_BINDINGS(bot) {
+  class_<Bot>("Bot")
     .constructor<double, double, double>()
     .property("x", &Point::getX, &Point::setX)
     .property("y", &Point::getY, &Point::setY)
-    .property("r", &Vector::r)
-    .property("theta", &Vector::getTheta, &Vector::setTheta)
-    .function("forward", &Vector::forward)
+    .property("r", &Bot::r)
+    .property("theta", &Bot::getTheta, &Bot::setTheta)
+    .function("forward", &Bot::forward)
     ;
 }
 

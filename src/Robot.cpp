@@ -5,7 +5,7 @@
 #include "Point.cpp"
 
 // implements of 2D Vector
-#include "Vector.cpp"
+#include "Bot.cpp"
 
 // implements of Patrolmen robots
 #include "Bots.cpp"
