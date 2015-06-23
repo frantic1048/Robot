@@ -43,11 +43,50 @@ var Robot = function () {
                        ,0
                        ,canvas.getAttribute("width")
                        ,canvas.getAttribute("height"));
+      context.save(); // save default drawing state
+
+      // draw map
+      var map = simulation.currentMap;
+      var vertexRadius = 3;
+      var eachVertex = function (operation) {
+        while(map.indexOfVertexIterator() !== -1){
+            vertex = map.nextVertex();
+            operation(vertex);
+        }
+      };
+
+      var vertices = [];
+      eachVertex(function(vertex){
+        vertices.push(vertex);
+      });
+
+      // draw map:edge line
+      context.restore();
+      context.save();
+      context.strokeStyle = "rgb(255, 185, 185)";
+      context.beginPath();
+      context.moveTo(rX(vertices[0].x),rY(vertices[0].y));
+      vertices.slice(1).forEach(function(vertex){
+        context.lineTo(rX(vertex.x), rY(vertex.y));
+      });
+      context.lineTo(rX(vertices[0].x),rY(vertices[0].y));
+      context.stroke();
+
+      // draw map:vertex
+      context.restore();
+      context.save();
+      context.fillStyle = "rgba(255, 40, 40,0.8)";
+      vertices.forEach(function(vertex){
+        context.beginPath();
+        context.arc(rX(vertex.x),rY(vertex.y),vertexRadius,0,2*Math.PI,true);
+        context.fill();
+      });
 
       // draw robots
+      context.restore();
+      context.save();
       var bots = simulation.currentBots;
       var bot = null;
-      var botPath = null;
       var botVisionRaduis = bots.visionRaduis;
       var botBodyRadius = botVisionRaduis / 10;
       var eachBot = function (operation) {
@@ -57,7 +96,8 @@ var Robot = function () {
         }
       };
 
-      // vision circle
+      // draw robots:vision circle
+      context.restore();
       context.save();
       context.setLineDash([5, 2]);
       context.lineDashOffset = now/30;
@@ -68,7 +108,7 @@ var Robot = function () {
         context.stroke();
       });
 
-      // direction line
+      // draw robots:direction line
       context.restore();
       context.save();
       context.strokeStyle = "rgba(45, 252, 255, 0.2)";
@@ -79,7 +119,7 @@ var Robot = function () {
         context.stroke();
       });
 
-      // bot body
+      // draw robots:bot body
       context.restore();
       context.save();
       context.fillStyle = "rgba(0,157,255,1)";

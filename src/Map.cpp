@@ -2,11 +2,13 @@
 #define __ROBOT_MAP_INCLUDED__
 
 #include <cstdlib>
+#include <cmath>
 
 #include <emscripten/bind.h>
 using namespace emscripten;
 
-#define MAP_INIT_RADIUS 500
+#define MAP_INIT_RADIUS 270
+#define PI 3.141592653589793
 
 class Point;
 
@@ -23,7 +25,19 @@ public:
   {
     vertices = new Point[size];
 
-    // TODO: randomize init
+    double div = 2*PI/size,
+           x = 0.0,
+           y = 0.0,
+           theta = 0.0,
+           r = 0.0;
+
+    for (long here = 0;here < size;++here) {
+      r = MAP_INIT_RADIUS + getRandomNumberBetween(-30,30);
+      x = r*std::sin(theta);
+      y = r*std::cos(theta);
+      vertices[here](x,y);
+      theta = theta + div;
+    }
   }
 
   long getSize () const {
@@ -33,7 +47,7 @@ public:
   Point nextVertex () { return vertices[verticesIteratorCount++]; }
 
   long indexOfVertexIterator () {
-    if (verticesIteratorCount<size)
+    if (verticesIteratorCount < size)
       return verticesIteratorCount;
     else {
       verticesIteratorCount = 0;
@@ -44,6 +58,7 @@ public:
 };
 
 #undef MAP_INIT_RADIUS
+#undef PI
 
 // Map constructor binding
 EMSCRIPTEN_BINDINGS(map) {
