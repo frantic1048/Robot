@@ -34,9 +34,14 @@ public:
   }
 
   void forward () {
-    double fr = r() + 1.0;
-    x = fr * std::cos(theta);
-    y = fr * std::sin(theta);
+    x = x + 1.0 * std::cos(theta);
+    y = y + 1.0 * std::sin(theta);
+  }
+
+  void operator () (double _x, double _y, double _theta) {
+    x = _x;
+    y = _y;
+    theta = _theta;
   }
 };
 

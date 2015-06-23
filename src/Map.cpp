@@ -32,7 +32,7 @@ public:
 
   Point nextVertex () { return vertices[verticesIteratorCount++]; }
 
-  long isEndVertex () {
+  long indexOfVertexIterator () {
     if (verticesIteratorCount<size)
       return verticesIteratorCount;
     else {
@@ -43,13 +43,15 @@ public:
 
 };
 
+#undef MAP_INIT_RADIUS
+
 // Map constructor binding
 EMSCRIPTEN_BINDINGS(map) {
   class_<Map>("Map")
     .constructor<long>()
     .property("size", &Map::getSize)
     .function("nextVertex", &Map::nextVertex)
-    .function("isEndVertex", &Map::isEndVertex);
+    .function("indexOfVertexIterator", &Map::indexOfVertexIterator);
 }
 
 #endif

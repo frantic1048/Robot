@@ -1,3 +1,6 @@
+// implements of random number generator
+#include "Random.cpp"
+
 // implements of 2D Point
 #include "Point.cpp"
 
