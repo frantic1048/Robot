@@ -1,5 +1,5 @@
-#ifndef __ROBOTO_RANDOM_INCLUDED__
-#define __ROBOTO_RANDOM_INCLUDED__
+#ifndef __ROBOT_RANDOM_INCLUDED__
+#define __ROBOT_RANDOM_INCLUDED__
 
 #include <random>
 

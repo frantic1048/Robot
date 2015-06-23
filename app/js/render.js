@@ -15,7 +15,7 @@ function Wclose() {
 }
 
 // robot simulator
-var Roboto = function () {
+var Robot = function () {
   var simulationArea = null,  // reference for layout
       canvas = null,  // Canvas Element to Draw
       context = null, // Canvas Context

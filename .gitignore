@@ -29,5 +29,5 @@ node_modules
 # Dolphin
 .directory
 
-# Compiled roboto.js
-roboto.js
+# Compiled Robot.cpp
+Robot.js

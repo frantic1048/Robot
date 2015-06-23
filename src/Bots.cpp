@@ -1,5 +1,5 @@
-#ifndef __ROBOTO_BOTS_INCLUDED__
-#define __ROBOTO_BOTS_INCLUDED__
+#ifndef __ROBOT_BOTS_INCLUDED__
+#define __ROBOT_BOTS_INCLUDED__
 
 #include <cstdlib>
 #include <cmath>

@@ -3,7 +3,7 @@
 <head>
 
 <meta charset="utf-8">
-<title>Roboto</title>
+<title>Robot</title>
 
 <link rel="shortcut icon" type="image/ico" href="uri" />
 
@@ -20,24 +20,24 @@
   <div id="layout">
     <div id="simulation-area"><!-- <canvas id="canvas"></canvas> --></div>
     <div id="sidebar">
-      <span class="title">Roboto</span>
+      <span class="title">Robot</span>
       <span id="window-controls" class="pure-g">
         <span class="button pure-u-1-3" id="minimize" onclick="Wminimize()"><i class="fa fa-chevron-down"></i></span>
         <span class="button pure-u-1-3" id="maximize" onclick="Wmaximize()"><i class="fa fa-circle-o"></i></span>
         <span class="button pure-u-1-3" id="close"    onclick="Wclose()"><i class="fa fa-close"></i></span>
       </span>
       <span class="label"><i class="fa fa-cog"></i>Controls</span>
-      <span class="button" onclick="roboto.stop()"><i class="fa fa-stop"></i>stop</span>
-      <span class="button" onclick="roboto.start()"><i class="fa fa-play"></i>start</span>
-      <span class="button" onclick="roboto.new()"><i class="fa fa-refresh"></i>new</span>
+      <span class="button" onclick="robot.stop()"><i class="fa fa-stop"></i>stop</span>
+      <span class="button" onclick="robot.start()"><i class="fa fa-play"></i>start</span>
+      <span class="button" onclick="robot.new()"><i class="fa fa-refresh"></i>new</span>
     </div>
   </div>
-  <script type="application/javascript" src="js/roboto.js"></script>
+  <script type="application/javascript" src="js/Robot.js"></script>
   <script type="application/javascript" src="js/render.js"></script>
   <script type="application/javascript">
   // Render Initial
-  var roboto = Roboto();
-  roboto.init();
+  var robot = Robot();
+  robot.init();
   </script>
 </body>
 </html>

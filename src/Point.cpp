@@ -1,5 +1,5 @@
-#ifndef __ROBOTO_POINT_INCLUDED__
-#define __ROBOTO_POINT_INCLUDED__
+#ifndef __ROBOT_POINT_INCLUDED__
+#define __ROBOT_POINT_INCLUDED__
 
 #include <cstdlib>
 #include <cmath>

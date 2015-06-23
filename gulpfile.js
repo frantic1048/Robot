@@ -3,8 +3,8 @@ var gulp  = require('gulp'),
 
 
 gulp.task('default',function(){
-  return gulp.src("src/roboto.cpp")
+  return gulp.src("src/Robot.cpp")
     .pipe(shell([
-      'em++ --bind -v <%= file.path %> -o app/js/roboto.js'
+      'em++ --bind -v <%= file.path %> -o app/js/Robot.js'
     ]))
 });

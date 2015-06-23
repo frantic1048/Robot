@@ -1,5 +1,5 @@
-#ifndef __ROBOTO_SIMULATOR_INCLUDED__
-#define __ROBOTO_SIMULATOR_INCLUDED__
+#ifndef __ROBOT_SIMULATOR_INCLUDED__
+#define __ROBOT_SIMULATOR_INCLUDED__
 
 #include <cstdlib>
 

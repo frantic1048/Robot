@@ -1,5 +1,5 @@
-#ifndef __ROBOTO_MAP_INCLUDED__
-#define __ROBOTO_MAP_INCLUDED__
+#ifndef __ROBOT_MAP_INCLUDED__
+#define __ROBOT_MAP_INCLUDED__
 
 #include <cstdlib>
 
