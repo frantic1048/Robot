@@ -30,4 +30,4 @@ node_modules
 .directory
 
 # Compiled Robot.cpp
-Robot.js
+js/Robot.js

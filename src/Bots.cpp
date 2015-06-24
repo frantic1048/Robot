@@ -65,8 +65,6 @@ public:
   void forward () {
     for ( long here = 0;here < size; ++here ) {
       if (botMoveMode[here] == BOT_MOVE_MODE_FREE) {
-        // normally forward
-
         // detect if bot reaches edge
 
         // not on edge,then turn
@@ -75,28 +73,33 @@ public:
             // when meet another bot...
             // turn...
 
-            double thetaCount = 0,
+            double neighborCount = 0,
                    xTotal = 0,
                    yTotal = 0,
-                   thetaAveReverse = 0,
-                   thetaTotal = 0,
-                   dist = 0;
+                   thetaAveReverse,
+                   dx,
+                   dy,
+                   dist,
+                   modularLength,
+                   weight;
 
             for (long other = 0; other < size; ++ other) {
               if( (other != here)
                 &&((dist = bots[here].distanceTo(bots[other])) <= visionRadius)
                 ) {
-                double dx = bots[other].getX() - bots[here].getX();
-                double dy = bots[other].getY() - bots[here].getY();
-                double dtheta = std::atan2(dy, dx);
-                xTotal += std::cos(dtheta) * std::pow(((int) visionRadius/dist), 2);
-                yTotal += std::sin(dtheta) * std::pow(((int) visionRadius/dist), 2);
-                thetaCount += std::pow(((int) visionRadius/dist), 2);
+                dx = bots[other].getX() - bots[here].getX();
+                dy = bots[other].getY() - bots[here].getY();
+                modularLength = std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
+                weight = std::pow(((int) visionRadius/dist), 2);
+
+                xTotal += dx/modularLength * weight;
+                yTotal += dy/modularLength * weight;
+                neighborCount += weight;
               }
             }
 
-            if (thetaCount > 0) {
-              thetaAveReverse = std::atan2(-yTotal/thetaCount,-xTotal/thetaCount);
+            if (neighborCount > 0) {
+              thetaAveReverse = std::atan2(-yTotal/neighborCount,-xTotal/neighborCount);
               bots[here].setTheta(thetaAveReverse);
             }
           }
@@ -106,6 +109,7 @@ public:
         // EDGE MODE
       }
 
+      // direction computed, normally forward 1 step
       bots[here].forward();
     }
   }
