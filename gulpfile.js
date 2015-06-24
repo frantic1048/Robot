@@ -10,5 +10,18 @@ gulp.task('default',function(){
       //        using   134217728 Byte = 128 MiB
       // -O3: enable on production
       'em++ --bind -v <%= file.path %> -s TOTAL_MEMORY=134217728 --memory-init-file 0 -o app/js/Robot.js'
-    ]))
+    ]));
 });
+
+
+gulp.task('stat',shell.task([
+    'wc --lines\
+     gulpfile.js \
+     package.json \
+     app/package.json \
+     app/main.js \
+     app/index.html \
+     app/js/render.js \
+     app/style/custom.css \
+     src/*.cpp'
+]));
