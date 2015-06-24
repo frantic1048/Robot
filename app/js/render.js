@@ -1,7 +1,5 @@
 var ipc = require('ipc'),
-
-    // Emscripten bindings
-    Simulator = Module.Simulator;
+    Simulator = Module.Simulator;// Emscripten binding
 
 // window controls
 function Wminimize() {
@@ -16,18 +14,21 @@ function Wclose() {
 
 // robot simulator
 var Robot = function () {
-  var simulationArea = null,  // reference for layout
-      canvas = null,  // Canvas Element to Draw
-      context = null, // Canvas Context
+  var FPS = 30, // FPS limit of rendering
+      robotCount = 30,
+      mapVertexCount = 20,
+
+      simulationArea = null,  // reference DOM element for simulation layout
+      canvas = null,  // canvas element to draw simulation
+      context = null, // canvas context
+      simulation = null, // object handling a simulator instance
+
       lastFrameTime = performance.now(); // time of last frame rendered(millisecond)
-      FPS = 30, // max FPS of rendering
-      running = false, // running status
+      running = false, // running state
 
       // origin point for drawing
       baseX = 0,
       baseY = 0;
-
-      simulation = null;
 
   function rX (x) { return baseX + x; }
   function rY (y) { return baseY + y; }
@@ -166,7 +167,7 @@ var Robot = function () {
     },
     new : function () {
       if (simulation !== null) simulation.delete();
-      simulation = new Simulator(666,20);
+      simulation = new Simulator(robotCount,mapVertexCount);
       this.resize();
       this.start();
     },

@@ -11,6 +11,8 @@ class Bot;
 double getRandomNumberBetween(double lowerBound, double upperBound);
 
 #define PI 3.141592653589793
+#define EPS_APR 0.3
+#define EPS_ZERO 0.0000001
 #define BOT_VISION_RADUIS 30
 #define BOT_INIT_RADIUS 100
 #define BOT_MOVE_MODE_FREE 1
@@ -62,47 +64,82 @@ public:
       }
   }
 
+  bool isOnEdge (Bot bot, Point vertexP, Point vertexN) {
+    double distP, // distance to previous vertex
+           distN, // distance to next vertex
+           distPN;// distance between distP, distN
+
+    distP = bot.distanceTo(vertexP);
+    distN = bot.distanceTo(vertexN);
+    distPN = vertexP.distanceTo(vertexN);
+    return (std::abs(distP + distN - distPN) < EPS_APR) ? true : false;
+  }
+
+  void freeTurn (long here) {
+    Bot &thisBot = bots[here];
+    for ( long another = 0; another < size; ++another ) {
+      if ( another != here && thisBot.distanceTo(bots[another]) <= visionRadius) {
+        // another bot in vision...
+        // compute new direction...
+
+        double neighborCount = 0,
+               xTotal = 0,
+               yTotal = 0,
+               thetaAveReverse,
+               dx,
+               dy,
+               dist,
+               modularLength,
+               weight;
+
+        for (long other = 0; other < size; ++ other) {
+          if( (other != here)
+            &&((dist = thisBot.distanceTo(bots[other])) <= visionRadius)
+            ) {
+            dx = bots[other].getX() - thisBot.getX();
+            dy = bots[other].getY() - thisBot.getY();
+            modularLength = std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
+            weight = std::pow(((int) visionRadius/dist), 2);
+
+            xTotal += dx/modularLength * weight;
+            yTotal += dy/modularLength * weight;
+            neighborCount += weight;
+          }
+        }
+
+        thetaAveReverse = std::atan2(-yTotal/neighborCount,-xTotal/neighborCount);
+        thisBot.setTheta(thetaAveReverse);
+      }
+      // bots[another] not in vision
+      // do nothing
+    }
+  }
+
   void forward () {
     for ( long here = 0;here < size; ++here ) {
       if (botMoveMode[here] == BOT_MOVE_MODE_FREE) {
-        // detect if bot reaches edge
+        // first, detect if bot reaches edge
+        if (isOnEdge(bots[here],
+                     mapVerticies[mapSize - 1],
+                     mapVerticies[0])) {
+           botMoveMode[here] = BOT_MOVE_MODE_EDGE;
+           bots[here].setTheta(0);
+         }
+        for (long vert = 1;vert < mapSize;++vert){
+          if (botMoveMode[here] == BOT_MOVE_MODE_EDGE) {break;}
+          if (isOnEdge(bots[here],
+                       mapVerticies[vert-1],
+                       mapVerticies[vert])) {
 
-        // not on edge,then turn
-        for ( long another = 0; another < size; ++another ) {
-          if ( another != here && bots[here].distanceTo(bots[another]) <= visionRadius) {
-            // when meet another bot...
-            // turn...
+              // reach edge,change to Edge mode
+               botMoveMode[here] = BOT_MOVE_MODE_EDGE;
+               bots[here].setTheta(0);
+             }
+        }
 
-            double neighborCount = 0,
-                   xTotal = 0,
-                   yTotal = 0,
-                   thetaAveReverse,
-                   dx,
-                   dy,
-                   dist,
-                   modularLength,
-                   weight;
-
-            for (long other = 0; other < size; ++ other) {
-              if( (other != here)
-                &&((dist = bots[here].distanceTo(bots[other])) <= visionRadius)
-                ) {
-                dx = bots[other].getX() - bots[here].getX();
-                dy = bots[other].getY() - bots[here].getY();
-                modularLength = std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
-                weight = std::pow(((int) visionRadius/dist), 2);
-
-                xTotal += dx/modularLength * weight;
-                yTotal += dy/modularLength * weight;
-                neighborCount += weight;
-              }
-            }
-
-            if (neighborCount > 0) {
-              thetaAveReverse = std::atan2(-yTotal/neighborCount,-xTotal/neighborCount);
-              bots[here].setTheta(thetaAveReverse);
-            }
-          }
+        if (botMoveMode[here] == BOT_MOVE_MODE_FREE) {
+          // not on edge,then freemode turn
+          freeTurn(here);
         }
 
       } else if (botMoveMode[here] == BOT_MOVE_MODE_EDGE) {
@@ -118,6 +155,8 @@ public:
 double const Bots::visionRadius = BOT_VISION_RADUIS;
 
 #undef PI
+#undef EPS_APR
+#undef EPS_ZERO
 #undef BOT_VISION_RADUIS
 #undef BOT_INIT_RADIUS
 #undef BOT_MOVE_MODE_FREE
