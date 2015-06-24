@@ -9,7 +9,7 @@ gulp.task('default',function(){
       //        default 16777216 = 16*1024*1024 Byte = 16 MiB
       //        using   134217728 Byte = 128 MiB
       // -O3: enable on production
-      'em++ --bind -v <%= file.path %> -s TOTAL_MEMORY=134217728 --memory-init-file 0 -o app/js/Robot.js'
+      'em++ --bind -v <%= file.path %> -s TOTAL_MEMORY=134217728 --memory-init-file 0 -O3 -o app/js/Robot.js'
     ]));
 });
 

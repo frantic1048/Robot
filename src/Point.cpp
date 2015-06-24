@@ -26,6 +26,10 @@ public:
     return std::sqrt((x - b.x) * (x - b.x) + (y - b.y) * (y - b.y));
   }
 
+  double angleTo (Point b) {
+    return std::atan2(b.y - y,b.x - x);
+  }
+
   void operator () (double _x,double _y) {
     x = _x;
     y = _y;

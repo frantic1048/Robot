@@ -14,8 +14,8 @@ function Wclose() {
 
 // robot simulator
 var Robot = function () {
-  var FPS = 30, // FPS limit of rendering
-      robotCount = 30,
+  var FPS = 50, // FPS limit of rendering
+      robotCount = 100,
       mapVertexCount = 20,
 
       simulationArea = null,  // reference DOM element for simulation layout
@@ -23,8 +23,9 @@ var Robot = function () {
       context = null, // canvas context
       simulation = null, // object handling a simulator instance
 
-      lastFrameTime = performance.now(); // time of last frame rendered(millisecond)
+      lastFrameTime = performance.now(), // time of last frame rendered(millisecond)
       running = false, // running state
+      drawing = false, // drawing state
 
       // origin point for drawing
       baseX = 0,
@@ -34,9 +35,11 @@ var Robot = function () {
   function rY (y) { return baseY + y; }
 
   function draw () {
+    if (drawing){ return; }
+    else { drawing = true; }
 
     var now = performance.now();
-    if (running && (now - lastFrameTime >= 1000/FPS)) {
+    if (now - lastFrameTime >= 1000/FPS) {
       lastFrameTime = now;
 
       // clear previous frame
@@ -100,9 +103,10 @@ var Robot = function () {
       // draw robots:vision circle
       context.restore();
       context.save();
-      context.setLineDash([5, 2]);
+      context.setLineDash([5,3]);
       context.lineDashOffset = now/30;
-      context.strokeStyle = "rgba(102, 202, 255, 0.4)";
+      context.strokeStyle = "rgba(102, 202, 255, 0.6)";
+      context.lineWidth = "2";
       eachBot(function(bot){
         context.beginPath();
         context.arc(rX(bot.x),rY(bot.y),botVisionRaduis,0,2*Math.PI,true);
@@ -112,7 +116,7 @@ var Robot = function () {
       // draw robots:direction line
       context.restore();
       context.save();
-      context.strokeStyle = "rgba(45, 252, 255, 0.2)";
+      context.strokeStyle = "rgba(45, 252, 255, 0.4)";
       eachBot(function(bot){
         context.beginPath();
         context.moveTo(rX(bot.x),rY(bot.y));
@@ -124,7 +128,7 @@ var Robot = function () {
       context.restore();
       context.save();
       // context.fillStyle = "rgba(0,157,255,1)";
-      context.fillStyle = "rgba(255, 63, 194, 1)";
+      context.fillStyle = "rgba(45, 252, 255, 1)";
       eachBot(function(bot){
         context.beginPath();
         context.arc(rX(bot.x),rY(bot.y),botBodyRadius,0,2*Math.PI,true);
@@ -132,8 +136,9 @@ var Robot = function () {
       });
 
       // compute next tick's status
-      simulation.nextTick();
+      if (running) simulation.nextTick();
     }
+    drawing = false;
     requestAnimationFrame(draw);
   }
   return {
@@ -164,6 +169,8 @@ var Robot = function () {
       rect = canvas.getBoundingClientRect();
       baseX = rect.width * 0.5;
       baseY = rect.height * 0.5;
+
+      if (simulation !== null) draw();
     },
     new : function () {
       if (simulation !== null) simulation.delete();
