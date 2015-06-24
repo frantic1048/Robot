@@ -29,5 +29,6 @@ node_modules
 # Dolphin
 .directory
 
-# Compiled Robot.cpp
-js/Robot.js
+# Compiled Robot.cpp stuff
+app/js/*
+!app/js/render.js
