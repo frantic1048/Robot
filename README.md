@@ -22,6 +22,10 @@ C++ 作业，模拟机器人巡逻。
 
 # 运行
 
-使用 Electron：
+##Electron
 
     $electron app
+
+##现代浏览器
+
+访问：[https://frantic1048.github.com/Robot/](https://frantic1048.github.com/Robot/)
