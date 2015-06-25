@@ -17,6 +17,7 @@
 }
 body{
   font-size:16px;
+  font-family:sans-serif;
   background:#1a1a1a;
 }
 #layout{
@@ -52,24 +53,28 @@ body{
   font-weight:bold;
   transition:all 0.2s ease;
 }
-#sidebar>span:not(#window-controls){
+#sidebar>span:not(.inline-control-group){
   padding: 0 2rem;
 }
 #sidebar>.title{
-  border-bottom: 1px solid rgb(62,175,255);
+  border-right: 5px solid rgb(62,175,255);
+  box-shadow: 0 2px 7px black;
+  margin-bottom: 2rem;
   -webkit-app-region: drag;
 }
-#sidebar>.label{
-  border-right: 5px solid rgb(62,175,255);
-  box-shadow:0 4px 19px black;
+#sidebar>span.label{
+  padding: 0.3rem 0.5rem;
+  font-size:0.8rem;
+  line-height: 1.8rem;
+  color:rgb(150,150,150);
   -webkit-app-region: drag;
 }
 #sidebar .button{
   transition: all 0.2s ease;
 }
-#sidebar .button>i.fa,
+#sidebar .button i.fa,
 #sidebar .label>i.fa{
-  padding: 0 0.5em;
+  padding:0.5em;
 }
 #sidebar .button:hover{
   background-color:rgb(62,175,255);
@@ -77,11 +82,27 @@ body{
 #sidebar .button#close:hover{
   background-color:rgb(236,47,67);
 }
-#window-controls{
+.inline-control-group{
   font-size:0;
+  padding:0;
+}
+.inline-control-group.small {
+  height:3rem;
+}
+.inline-control-group.small .button{
+  line-height:3rem;
+  height:3rem;
 }
 
-#window-controls>.button{
+.inline-control-group .button{
   font-size:1rem;
   text-align: center;
+}
+
+.inline-control-group input[type="radio"]{
+  display:none;
+}
+.inline-control-group input[type="radio"]:checked+label{
+  background-color:rgb(62,175,255);
+  box-shadow: 0 0 2px rgb(62,175,255);
 }

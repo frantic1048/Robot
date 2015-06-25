@@ -1,5 +1,5 @@
-var ipc = require('ipc'),
-    Simulator = Module.Simulator;// Emscripten binding
+var ipc = require('ipc');
+var Simulator = Module.Simulator;// Emscripten binding
 
 // window controls
 function Wminimize() {
@@ -12,11 +12,15 @@ function Wclose() {
   ipc.send('Wclose');
 }
 
+function Wreload() {
+  ipc.send('Wreload');
+}
+
 // robot simulator
 var Robot = function () {
   var FPS = 30, // FPS limit of rendering
-      robotCount = 200,
-      mapVertexCount = 14,
+      robotCount = 40,
+      mapVertexCount = 17,
 
       simulationArea = null,  // reference DOM element for simulation layout
       canvas = null,  // canvas element to draw simulation
@@ -172,15 +176,33 @@ var Robot = function () {
 
       if (simulation !== null) draw();
     },
+    reload : function () { Wreload(); },
     new : function () {
       if (simulation !== null) simulation.delete();
       simulation = new Simulator(robotCount,mapVertexCount);
       this.resize();
       this.start();
+
+      // light on state-running button
+      document.querySelector('#state2+label').click();
     },
-    setFPS : function (fps) {
-      var nfps = parseInt(fps,10) || 24;
+    setFPS : function (_fps) {
+      var nfps = parseInt(_fps,10) || 24;
       if (nfps > 0) FPS = nfps;
+    },
+    setRobotCount : function (_robotCount) {
+      var nRobotCount = parseInt(_robotCount,10) || 30;
+      if (nRobotCount > 0){
+         robotCount = nRobotCount;
+         this.new();
+       }
+    },
+    setVertexCount : function (_vertexCount) {
+      var nVertexCount = parseInt(_vertexCount, 10) || 20;
+      if (nVertexCount > 0){
+        mapVertexCount = nVertexCount;
+        this.new();
+      }
     }
   };
 };

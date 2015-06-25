@@ -64,5 +64,8 @@ app.on('ready', function() {
   ipc.on('Wclose', function(event, arg) {
     mainWindow.close();
   });
+  ipc.on('Wreload', function(event, arg) {
+    mainWindow.reload();
+  });
 
 });

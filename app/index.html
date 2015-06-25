@@ -20,16 +20,39 @@
   <div id="layout">
     <div id="simulation-area"><!-- <canvas id="canvas"></canvas> --></div>
     <div id="sidebar">
-      <span class="title">Robot</span>
-      <span id="window-controls" class="pure-g">
+      <span class="pure-g inline-control-group">
         <span class="button pure-u-1-3" id="minimize" onclick="Wminimize()"><i class="fa fa-chevron-down"></i></span>
         <span class="button pure-u-1-3" id="maximize" onclick="Wmaximize()"><i class="fa fa-circle-o"></i></span>
         <span class="button pure-u-1-3" id="close"    onclick="Wclose()"><i class="fa fa-close"></i></span>
       </span>
-      <span class="label"><i class="fa fa-cog"></i>Controls</span>
-      <span class="button" onclick="robot.stop()"><i class="fa fa-stop"></i>stop</span>
-      <span class="button" onclick="robot.start()"><i class="fa fa-play"></i>start</span>
-      <span class="button" onclick="robot.new()"><i class="fa fa-refresh"></i>new</span>
+      <span class="title">Robot</span>
+      <span class="label"><i class="fa fa-heartbeat"></i>State</span>
+      <span class="pure-g inline-control-group">
+        <input type="radio" name="state" id="state1"><label for="state1" title="freeze animation" class="button pure-u-1-3" onclick="robot.stop()"><i class="fa fa-unlink"></i></label>
+        <input type="radio" name="state" id="state2" checked><label for="state2" title="continue animation" class="button pure-u-1-3" onclick="robot.start()"><i class="fa fa-link"></i></label>
+        <span title="new simulation" class="button pure-u-1-3" onclick="robot.new()"><i class="fa fa-refresh"></i></span>
+      </span>
+      <span class="label"><i class="fa fa-cogs"></i>Bot Amount</span>
+      <span class="pure-g inline-control-group small">
+        <input type="radio" name="botamount" id="bot1"><label for="bot1" class="button pure-u-1-4" onclick="robot.setRobotCount(1)">1</label>
+        <input type="radio" name="botamount" id="bot2"><label for="bot2" class="button pure-u-1-4" onclick="robot.setRobotCount(10)">10</label>
+        <input type="radio" name="botamount" id="bot3" checked><label for="bot3" class="button pure-u-1-4" onclick="robot.setRobotCount(40)">40</label>
+        <input type="radio" name="botamount" id="bot4"><label for="bot4" class="button pure-u-1-4" onclick="robot.setRobotCount(100)">100</label>
+      </span>
+      <span class="label"><i class="fa fa-connectdevelop"></i>Vertex Amount</span>
+      <span class="pure-g inline-control-group small">
+        <input type="radio" name="vertamount" id="vert1"><label for="vert1" class="button pure-u-1-4" onclick="robot.setVertexCount(3)">3</label>
+        <input type="radio" name="vertamount" id="vert2" checked><label for="vert2" class="button pure-u-1-4" onclick="robot.setVertexCount(17)">17</label>
+        <input type="radio" name="vertamount" id="vert3"><label for="vert3" class="button pure-u-1-4" onclick="robot.setVertexCount(40)">40</label>
+        <input type="radio" name="vertamount" id="vert4"><label for="vert4" class="button pure-u-1-4" onclick="robot.setVertexCount(100)">100</label>
+      </span>
+      <span class="label"><i class="fa fa-tachometer"></i>FPS Limit</span>
+      <span class="pure-g inline-control-group small">
+        <input type="radio" name="fpslimit" id="fps1"><label for="fps1" class="button pure-u-1-4" onclick="robot.setFPS(1)">1</label>
+        <input type="radio" name="fpslimit" id="fps2"><label for="fps2" class="button pure-u-1-4" onclick="robot.setFPS(10)">10</label>
+        <input type="radio" name="fpslimit" id="fps3" checked><label for="fps3" class="button pure-u-1-4" onclick="robot.setFPS(30)">30</label>
+        <input type="radio" name="fpslimit" id="fps4"><label for="fps4" class="button pure-u-1-4" onclick="robot.setFPS(240)">240</label>
+      </span>
     </div>
   </div>
   <script type="application/javascript" src="js/Robot.js"></script>
