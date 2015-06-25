@@ -31,7 +31,7 @@ app.on('ready', function() {
   mainWindow.setSize(800,601);
 
   // disable default electron menubar
-  // mainWindow.setMenu(null);
+  mainWindow.setMenu(null);
 
   // and load the index.html of the app.
   mainWindow.loadUrl('file://' + __dirname + '/index.html');
