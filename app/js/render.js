@@ -14,9 +14,9 @@ function Wclose() {
 
 // robot simulator
 var Robot = function () {
-  var FPS = 50, // FPS limit of rendering
-      robotCount = 100,
-      mapVertexCount = 20,
+  var FPS = 30, // FPS limit of rendering
+      robotCount = 200,
+      mapVertexCount = 14,
 
       simulationArea = null,  // reference DOM element for simulation layout
       canvas = null,  // canvas element to draw simulation

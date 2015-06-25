@@ -5,11 +5,12 @@ var gulp  = require('gulp'),
 gulp.task('default',function(){
   return gulp.src("src/Robot.cpp")
     .pipe(shell([
-      // -s : total memory
+      // -s : TOTAL_MEMORY
       //        default 16777216 = 16*1024*1024 Byte = 16 MiB
       //        using   134217728 Byte = 128 MiB
+      //        ALLOW_MEMORY_GROWTH
       // -O3: enable on production
-      'em++ --bind -v <%= file.path %> -s TOTAL_MEMORY=134217728 --memory-init-file 0 -O3 -o app/js/Robot.js'
+      'em++ --bind -v <%= file.path %> -s ALLOW_MEMORY_GROWTH=1 --memory-init-file 0 -O3 -o app/js/Robot.js'
     ]));
 });
 

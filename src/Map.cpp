@@ -7,7 +7,7 @@
 #include <emscripten/bind.h>
 using namespace emscripten;
 
-#define MAP_INIT_RADIUS 270
+#define MAP_INIT_RADIUS 300
 #define PI 3.141592653589793
 
 class Point;
@@ -32,7 +32,8 @@ public:
            r = 0.0;
 
     for (long here = 0;here < size;++here) {
-      r = MAP_INIT_RADIUS + getRandomNumberBetween(-30,30);
+      // more vertex,less randomization range
+      r = MAP_INIT_RADIUS + getRandomNumberBetween(-(800.0/size<160?800/size:160),0);
       x = r*std::sin(theta);
       y = r*std::cos(theta);
       vertices[here](x,y);
