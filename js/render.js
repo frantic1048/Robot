@@ -1,20 +1,4 @@
-var ipc = require('ipc');
 var Simulator = Module.Simulator;// Emscripten binding
-
-// window controls
-function Wminimize() {
-  ipc.send('Wminimize');
-}
-function Wmaximize() {
-  ipc.send('Wmaximize');
-}
-function Wclose() {
-  ipc.send('Wclose');
-}
-
-function Wreload() {
-  ipc.send('Wreload');
-}
 
 // robot simulator
 var Robot = function () {
@@ -176,7 +160,6 @@ var Robot = function () {
 
       if (simulation !== null) draw();
     },
-    reload : function () { Wreload(); },
     new : function () {
       if (simulation !== null) simulation.delete();
       simulation = new Simulator(robotCount,mapVertexCount);
